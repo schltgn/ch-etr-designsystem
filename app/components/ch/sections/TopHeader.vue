@@ -28,6 +28,7 @@
         <SvgIcon icon="SignLanguage" size="2xl" />
       </div>
       <div v-if="!isEasyLanguage && !isSignLanguage" class="top-header__right">
+        <!--
         <MetaNavigation :isFreebrand="isFreebrand" />
         <div class="top-header__container-flex">
           <SearchMain :isMenuV2="isMenuV2" @toggle-search="toggleSearch" />
@@ -53,14 +54,15 @@
             :label="shoppingCartLabel"
           />
         </div>
+        -->
         <LanguageSwitcher
           v-if="isFreebrand && screenSize <= 1023"
           type="outline"
         />
-        <Burger
+        <!--Burger
           :isOpen="getMobileMenuIsOpen()"
           @click="layoutStore.toggleMobileMenu"
-        />
+        /-->
       </div>
     </div>
   </div>
