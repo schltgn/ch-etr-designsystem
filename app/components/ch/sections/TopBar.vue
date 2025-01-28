@@ -360,10 +360,11 @@ const filterString = ref('')
 const useStickyPlaceholder = ref(false)
 const initialTopBarOffset = ref(0)
 
-const isOpen = defineModel('isOpen', {
-  type: Boolean,
-  default: () => false,
-})
+// const isOpen = defineModel('isOpen', {
+//   type: Boolean,
+//   default: () => false,
+// })
+const isOpen = ref(false);
 const props = defineProps({
   isEasyLanguage: {
     type: Boolean,
