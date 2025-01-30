@@ -2,11 +2,13 @@
   <div :class="computedClass">
     <label for="lang-switcher" class="sr-only"> Select language </label>
     <Select id="lang-switcher" size="sm" bare :variant="type">
-      <option>DE</option>
-      <option>FR</option>
-      <option>IT</option>
-      <option disabled>RM</option>
-      <option>EN</option>
+      <option
+          v-for="lang in $languages"
+          :key="lang.text"
+          :selected="lang.active"
+      >
+        {{ lang.text }}
+      </option>
     </Select>
   </div>
 </template>

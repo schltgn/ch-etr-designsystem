@@ -5,24 +5,9 @@
     aria-label="Main"
   >
     <ul class="menu-desktop">
-      <li>
-        <a href="javascript:alert('link')">
-          <span>Alle</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:alert('link)" class="active">
-          <span>Corona</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:alert('link')">
-          <span>Bürgerrecht</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:alert('link')">
-          <span>Ukraine</span>
+      <li v-for="navItem in $mainNavigation">
+        <a :href="navItem.url">
+          <span>{{ navItem.text }}</span>
         </a>
       </li>
     </ul>
