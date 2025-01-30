@@ -97,18 +97,10 @@ onMounted(async () => {
     overlay: '#desktop-menu__overlay',
     closeButton: '#desktop-menu-closer',
   })
-  // demo only: force to show 2nd level of sub-navigation
-  Navy.showLevel(props.showActiveNavigation ? 2 : 0)
 
-  // demo only: force level-0 to open when more button is clicked
+  Navy.showLevel(0)
+
   if (!props.isSimplePage) {
-    ;(document.getElementById('more-button') as HTMLElement).addEventListener(
-      'click',
-      function () {
-        Navy.showLevel(0)
-      },
-    )
-
     MenuMore.init({
       navigationItem: '#desktop-menu > div > div > .container > nav',
       moreButton: '#more-button',
