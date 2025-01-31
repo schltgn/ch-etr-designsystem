@@ -2,7 +2,7 @@
   <nav id="main-navigation" :class="mainNavigationClass" aria-label="Main">
     <ul>
       <MainNavigationItem
-          v-for="(navItem, index) in $mainNavigation"
+          v-for="(navItem, index) in $clientData.mainNavigation"
           :navItem="navItem"
           :context="context"
           :level="0"

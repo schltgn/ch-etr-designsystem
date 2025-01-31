@@ -5,7 +5,7 @@
     aria-label="Main"
   >
     <ul class="menu-desktop">
-      <li v-for="navItem in $mainNavigation">
+      <li v-for="navItem in $clientData.mainNavigation">
         <a :href="navItem.url">
           <span>{{ navItem.text }}</span>
         </a>
