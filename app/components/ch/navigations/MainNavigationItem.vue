@@ -8,8 +8,8 @@
     <a
         :href="navItem.url ? navItem.url : '#'"
         :role="navItem.children.length > 0 ? 'button' : null"
-        :class="{'navy__has-children' : navItem.children.length > 0, active : showActiveNavigation && navItem.active }"
-        :aria-current="showActiveNavigation && navItem.active"
+        :class="{'navy__has-children' : navItem.children.length > 0, active : showActiveNavigation && isActive }"
+        :aria-current="showActiveNavigation && isActive"
     >
       <span>{{ navItem.text }}</span>
       <SvgIcon v-if="navItem.children.length > 0 && context == 'mobile'" icon="ArrowRight" size="lg" />
@@ -27,15 +27,30 @@
   </li>
 </template>
 
-<script setup lang="ts">
-import MainNavigationItem from './MainNavigationItem.vue'
+<script setup>
+//import MainNavigationItem from './MainNavigationItem.vue'
 import SvgIcon from '../components/SvgIcon.vue'
+import { computed } from "vue";
 
-defineProps({
+// Define props without type annotations
+const props = defineProps({
   navItem: { type: Object },
   level: { type: Number },
   index: { type: Number },
   context: { type: String },
   showActiveNavigation: { type: Boolean },
 })
+
+// Recursive function to check if the item or any child has the property
+const computeIsActive = (navItem) => {
+  if (navItem.active) {
+    return true; // If the current item has the property, return true
+  }
+  // Recursively check children (if they exist)
+  return navItem.children?.some(child => computeIsActive(child)) || false;
+};
+
+// Computed property for template binding
+const isActive = computed(() => computeIsActive(props.navItem));
+
 </script>
