@@ -5,7 +5,7 @@
     aria-label="Main"
   >
     <ul class="menu-desktop">
-      <li v-for="navItem in $clientData.mainNavigation">
+      <li v-for="navItem in navItems">
         <a :href="navItem.url">
           <span>{{ navItem.text }}</span>
         </a>
@@ -14,4 +14,16 @@
   </nav>
 </template>
 
-<script setup lang="ts"></script>
+<script setup>
+import {computed, getCurrentInstance} from "vue";
+
+const navItems = computed(() => {
+  return getCurrentInstance()
+      .appContext
+      .config
+      .globalProperties
+      .$clientData
+      .mainNavigation
+      .filter(o => !o.hide);
+});
+</script>

@@ -2,7 +2,7 @@
   <nav id="main-navigation" :class="mainNavigationClass" aria-label="Main">
     <ul>
       <MainNavigationItem
-          v-for="(navItem, index) in $clientData.mainNavigation"
+          v-for="(navItem, index) in visibleNavItems"
           :nav-item="navItem"
           :context="context"
           :level="0"
@@ -27,26 +27,36 @@
   </nav>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import MainNavigationItem from './MainNavigationItem.vue'
 import SvgIcon from '../components/SvgIcon.vue'
-import { computed } from 'vue'
+import {computed, getCurrentInstance} from 'vue'
 
 const props = defineProps({
   context: {
     type: String,
     required: true,
-    validator: (prop) => ['desktop', 'mobile'].includes(prop as string),
+    validator: (prop) => ['desktop', 'mobile'].includes(prop),
   },
   showActiveNavigation: {
     type: Boolean,
     default: true
   },
-})
+});
 
 const mainNavigationClass = computed(() => {
   let base = `main-navigation `
   if (props.context) base += `main-navigation--${props.context} `
   return base
 })
+
+const visibleNavItems = computed(() => {
+  return getCurrentInstance()
+      .appContext
+      .config
+      .globalProperties
+      .$clientData
+      .mainNavigation
+      .filter(o => !o.hide);
+});
 </script>

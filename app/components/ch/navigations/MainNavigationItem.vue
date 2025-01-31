@@ -16,7 +16,7 @@
     </a>
     <ul v-if="navItem.children.length > 0">
         <MainNavigationItem
-            v-for="(child, index) in navItem.children"
+            v-for="(child, index) in visibleChildItems"
             :nav-item="child"
             :context="context"
             :level="level+1"
@@ -30,7 +30,7 @@
 
 <script setup>
 import SvgIcon from '../components/SvgIcon.vue'
-import { computed } from "vue";
+import {computed, getCurrentInstance} from "vue";
 
 // Define props without type annotations
 const props = defineProps({
@@ -54,4 +54,7 @@ const computeIsActive = (navItem) => {
 // Computed property for template binding
 const isActive = computed(() => computeIsActive(props.navItem));
 
+const visibleChildItems = computed(() => {
+  return props.navItem.children.filter(navItem => !navItem.hide);
+});
 </script>
