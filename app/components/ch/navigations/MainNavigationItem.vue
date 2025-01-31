@@ -4,7 +4,7 @@
       <SvgIcon icon="ArrowLeft" size="lg" />
       <span>Back</span>
     </a>
-    <h2 v-if="level > 0 && index == 0" class="navy__title">{{ navItem.text }}</h2>
+    <h2 v-if="parentNavItem != null && index == 0" class="navy__title">{{ parentNavItem.text }}</h2>
     <a
         :href="navItem.url ? navItem.url : '#'"
         :role="navItem.children.length > 0 ? 'button' : null"
@@ -17,24 +17,25 @@
     <ul v-if="navItem.children.length > 0">
         <MainNavigationItem
             v-for="(child, index) in navItem.children"
-            :navItem="child"
+            :nav-item="child"
             :context="context"
             :level="level+1"
             :index="index"
-            :showActiveNavigation="showActiveNavigation"
+            :show-active-navigation="showActiveNavigation"
+            :parent-nav-item="navItem"
         />
     </ul>
   </li>
 </template>
 
 <script setup>
-//import MainNavigationItem from './MainNavigationItem.vue'
 import SvgIcon from '../components/SvgIcon.vue'
 import { computed } from "vue";
 
 // Define props without type annotations
 const props = defineProps({
   navItem: { type: Object },
+  parentNavItem: { type: Object },
   level: { type: Number },
   index: { type: Number },
   context: { type: String },

@@ -3,11 +3,12 @@
     <ul>
       <MainNavigationItem
           v-for="(navItem, index) in $clientData.mainNavigation"
-          :navItem="navItem"
+          :nav-item="navItem"
           :context="context"
           :level="0"
           :index="index"
-          :showActiveNavigation="showActiveNavigation"
+          :show-active-navigation="showActiveNavigation"
+          :parent-nav-item="null"
       />
       <!-- more button -->
       <li v-if="context == 'desktop'" id="more-button">

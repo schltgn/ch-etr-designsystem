@@ -1,48 +1,19 @@
 <template>
-  <nav v-if="isSimplePage">
+  <nav :class="breadcrumbNavigationClass" aria-label="Breadcrumb">
     <ul>
       <li>
-        <a href="javascript:void(0)">
+        <a :href="$clientData.contextPath">
           <span>Startseite</span>
         </a>
       </li>
-      <li>
-        <a
-          href="javascript:void(0)"
-          class="breadcrumb__has-children active"
-          aria-current="true"
-        >
-          <SvgIcon
-            icon="ChevronRight"
-            class="breadcrumb__include-icon"
-            aria-hidden="true"
-          />
-          <span>Corona</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="javascript:void(0)"
-          class="breadcrumb__has-children active"
-          aria-current="true"
-        >
-          <SvgIcon
-            icon="ChevronRight"
-            class="breadcrumb__include-icon"
-            aria-hidden="true"
-          />
-          <span>Regeln und Verbote</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <nav v-else :class="breadcrumbNavigationClass" aria-label="Breadcrumb">
-    <ul>
-      <li>
-        <a href="javascript:alert('homepage')">
-          <span>Startseite</span>
-        </a>
-      </li>
+      <BreadcrumbNavigationItem
+          v-for="(navItem, index) in breadcrumbNavItems"
+          :navItem="navItem"
+          :level="0"
+          :index="index"
+          :context="context"
+      />
+      <!--
       <li>
         <a
           href="javascript:void(0)"
@@ -219,13 +190,14 @@
           <li><a href="javascript:alert('link')">FAQ API</a></li>
         </ul>
       </li>
+      -->
     </ul>
   </nav>
 </template>
 
-<script setup lang="ts">
-import SvgIcon from '../components/SvgIcon.vue'
-import { computed } from 'vue'
+<script setup>
+import BreadcrumbNavigationItem from './BreadcrumbNavigationItem.vue'
+import { computed, getCurrentInstance } from 'vue'
 
 const props = defineProps({
   isSimplePage: {
@@ -243,4 +215,40 @@ const breadcrumbNavigationClass = computed(() => {
   if (props.context) base += `breadcrumb-navigation--${props.context} `
   return base
 })
+
+const breadcrumbNavItems = computed(() => {
+  const items = findBreadcrumbs(
+      getCurrentInstance()
+          .appContext
+          .config
+          .globalProperties
+          .$clientData
+          .mainNavigation
+  );
+  console.log("Active navigation items ", items);
+  return items;
+});
+
+const findBreadcrumbs = (navItems, path = []) => {
+  for (const item of navItems) {
+    if (isActive(item)) {
+      const newPath = [...path, item];
+      if (item.children && item.children.length) {
+        const childPath = findBreadcrumbs(item.children, newPath);
+        if (childPath.length) return childPath;
+      }
+      return newPath;
+    }
+  }
+  return [];
+};
+
+const isActive = (navItem) => {
+  if (navItem.active) {
+    return true; // If the current item has the property, return true
+  }
+  // Recursively check children (if they exist)
+  return navItem.children?.some(child => isActive(child)) || false;
+};
+
 </script>
