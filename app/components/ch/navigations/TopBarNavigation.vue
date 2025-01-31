@@ -7,8 +7,8 @@
   >
     <ul>
       <li>
-        <a href="#">
-          <span>{{ $t('topBar.login') }}</span>
+        <a :href="$clientData.loginLogout.url">
+          <span>{{ $clientData.loginLogout.text }}</span>
         </a>
         <a href="#">
           <span>Informationsportal der Schweizer Behörden</span>
@@ -33,8 +33,8 @@
       </li>
       -->
       <li>
-        <a href="#">
-          <span>{{ $t('topBar.login') }} </span>
+        <a :href="$clientData.loginLogout.url">
+          <span>{{ $clientData.loginLogout.text }} </span>
           <SvgIcon icon="User" size="lg" />
         </a>
       </li>
