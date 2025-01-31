@@ -30,7 +30,7 @@ const computedClass = computed(() => {
   return base
 })
 
-const changeLanguage = (url) => {
+const changeLanguage = (url: string) => {
   if (url) {
     window.location.href = url;
   }
