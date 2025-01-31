@@ -14,6 +14,7 @@
         :isFreebrand="isFreebrand"
         :isEasyLanguage="isEasyLanguage"
         :isSignLanguage="isSignLanguage"
+        :link="$clientData.contextPath"
       />
       <Logo
         v-if="overrideLogoForPrint"
