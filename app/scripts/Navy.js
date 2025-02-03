@@ -47,7 +47,7 @@ const Navy = {
       const firstLink = Navy.drawer.querySelector(
         `.navy__level-${Navy.currentLevel} ul > li a`,
       )
-      if (firstLink == document.activeElement) firstLink.blur()
+      if (firstLink === document.activeElement) firstLink.blur()
       else firstLink.focus()
     }
 
@@ -62,6 +62,7 @@ const Navy = {
   },
 
   parseTree(ul, level) {
+    ul.classList.add('hidden')
     const nextButtons = ul.querySelectorAll(':scope > li > .navy__has-children')
     if (nextButtons.length === 0) return
 
@@ -70,10 +71,20 @@ const Navy = {
     )
     const submenus = ul.querySelectorAll(':scope > li > ul')
 
+    ;[].forEach.call(backButtons, function (backBtn) {
+      backBtn.relatedMenu = backBtn.parentElement.parentElement.parentElement.parentElement
+
+      backBtn.addEventListener('click', function () {
+        Navy.showLevel(level)
+        Navy.displayRelatedSubmenu(backBtn, backBtn.relatedMenu, submenus, true)
+        backBtn.parentElement.parentElement.classList.add('hidden')
+      })
+    })
+
     ;[].forEach.call(nextButtons, function (btn) {
       btn.relatedMenu = btn.nextElementSibling
 
-      // inject menu in it's respective slide:
+      // move menu into it's respective slide:
       Navy.level[level + 1].appendChild(btn.relatedMenu)
 
       btn.addEventListener('click', function () {
@@ -85,16 +96,6 @@ const Navy = {
 
       // recursion for next navigation levels
       Navy.parseTree(btn.relatedMenu, level + 1)
-    })
-    ;[].forEach.call(backButtons, function (backBtn) {
-      backBtn.relatedMenu =
-        backBtn.parentElement.parentElement.parentElement.previousSibling.querySelector(
-          'ul',
-        )
-      backBtn.addEventListener('click', function () {
-        Navy.showLevel(level)
-        Navy.displayRelatedSubmenu(backBtn, backBtn.relatedMenu, submenus, true)
-      })
     })
   },
 
@@ -154,6 +155,8 @@ const Navy = {
     mainmenuBtn.classList.remove('clicked')
     Navy.currentMenuBtn = undefined
     Navy.currentRelatedMenu = undefined
+    // reset to level 0
+    Navy.showLevel(0)
   },
 
   toggleSubmenu(mainmenuBtn, relatedMenu, submenus) {
@@ -189,7 +192,7 @@ const Navy = {
 
     const closeBtn = document.querySelector(options.closeButton)
     const mainmenuBtns = Navy.nav.querySelectorAll(':scope > ul > li > a')
-    const submenus = Navy.nav.querySelectorAll(':scope > ul > li > ul')
+    const submenus = Navy.nav.querySelectorAll(':scope ul')
     const slide0 = Navy.drawer.querySelector(':scope > .navy > .navy__level-0')
 
     window.addEventListener('resize', function () {
@@ -201,7 +204,7 @@ const Navy = {
       mainmenuBtn.relatedMenu = mainmenuBtn.nextElementSibling
       if (!mainmenuBtn.relatedMenu) return
 
-      // inject menu in slide 0:
+      // moves menu into slide 0:
       slide0.appendChild(mainmenuBtn.relatedMenu)
 
       // hide first .navy__back button:
@@ -216,12 +219,16 @@ const Navy = {
       // add click events
       mainmenuBtn.addEventListener('click', function (event) {
         event.preventDefault()
+        Navy.closeSubmenu(mainmenuBtn)
         Navy.toggleSubmenu(mainmenuBtn, mainmenuBtn.relatedMenu, submenus)
       })
 
       closeBtn.addEventListener('click', function (event) {
         event.preventDefault()
         Navy.closeSubmenu(mainmenuBtn)
+        ;[].forEach.call(submenus, function (submenu) {
+          submenu.classList.add('hidden')
+        })
       })
 
       Navy.overlay.addEventListener('click', function (event) {

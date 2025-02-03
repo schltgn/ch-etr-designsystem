@@ -4,7 +4,7 @@
       <SvgIcon icon="ArrowLeft" size="lg" />
       <span>Back</span>
     </a>
-    <h2 v-if="parentNavItem != null && index == 0" class="navy__title">{{ parentNavItem.text }}</h2>
+    <h2 v-if="parentNavItem != null && index === 0" class="navy__title">{{ parentNavItem.text }}</h2>
     <a
         :href="navItem.url ? navItem.url : '#'"
         :role="navItem.children.length > 0 ? 'button' : null"
@@ -12,7 +12,7 @@
         :aria-current="showActiveNavigation && isActive"
     >
       <span>{{ navItem.text }}</span>
-      <SvgIcon v-if="navItem.children.length > 0 && context == 'mobile'" icon="ArrowRight" size="lg" />
+      <SvgIcon v-if="navItem.children.length > 0" icon="ArrowRight" size="lg" />
     </a>
     <ul v-if="navItem.children.length > 0">
         <MainNavigationItem
@@ -30,7 +30,7 @@
 
 <script setup>
 import SvgIcon from '../components/SvgIcon.vue'
-import {computed, getCurrentInstance} from "vue";
+import {computed} from "vue";
 
 // Define props without type annotations
 const props = defineProps({

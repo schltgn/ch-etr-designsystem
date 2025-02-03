@@ -11,7 +11,7 @@
           :parent-nav-item="null"
       />
       <!-- more button -->
-      <li v-if="context == 'desktop'" id="more-button">
+      <li v-if="context === 'desktop'" id="more-button">
         <a
           href=""
           @click.prevent
