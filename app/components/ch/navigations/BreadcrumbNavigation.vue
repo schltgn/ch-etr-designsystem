@@ -7,11 +7,8 @@
         </a>
       </li>
       <BreadcrumbNavigationItem
-          v-for="(navItem, index) in breadcrumbNavItems"
-          :navItem="navItem"
-          :level="0"
-          :index="index"
-          :context="context"
+          v-for="(navItems) in breadcrumbNavItems"
+          :navItems="navItems"
       />
     </ul>
   </nav>
@@ -51,17 +48,12 @@ const breadcrumbNavItems = computed(() => {
 });
 
 const findBreadcrumbs = (navItems, path = []) => {
-  for (const item of navItems) {
-    if (isActive(item)) {
-      const newPath = [...path, item];
-      if (item.children && item.children.length) {
-        const childPath = findBreadcrumbs(item.children, newPath);
-        if (childPath.length) return childPath;
-      }
-      return newPath;
-    }
+  const activeItem = navItems.find(child => isActive(child)) || false;
+  if (activeItem) {
+    const newPath = [...path, navItems];
+    return findBreadcrumbs(activeItem.children, newPath);
   }
-  return [];
+  return path;
 };
 
 const isActive = (navItem) => {

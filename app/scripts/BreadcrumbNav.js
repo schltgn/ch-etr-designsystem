@@ -3,7 +3,7 @@ const BreadcrumbNav = {
     BreadcrumbNav.currentMenuBtn = undefined
 
     const nav = document.querySelector(navigationItem)
-    const breadcrumbBtns = nav.querySelectorAll(':scope > ul > li:not(:first-child):not(:last-child) > a')
+    const breadcrumbBtns = nav.querySelectorAll(':scope > ul > li:not(:first-child) > a')
 
     function closeBreadcrumbNav() {
       if (BreadcrumbNav.currentMenuBtn) {
