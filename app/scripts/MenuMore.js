@@ -29,7 +29,10 @@ const MenuMore = {
       }
       item.style.display = 'block'
     })
-    if (MenuMore.menuSize <= MenuMore.getMenuWrapperSize()) return
+    if (MenuMore.menuSize <= MenuMore.getMenuWrapperSize()) {
+      MenuMore.moreBtn.style.display='none';
+      return
+    }
 
     MenuMore.menuItems.forEach(function (item, index, array) {
       // exclude the «more» button, displayed at the end of mainmenu
