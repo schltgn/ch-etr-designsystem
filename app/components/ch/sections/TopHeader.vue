@@ -33,27 +33,6 @@
         <MetaNavigation :isFreebrand="isFreebrand" />
         <div class="top-header__container-flex">
           <SearchMain :isMenuV2="isMenuV2" @toggle-search="toggleSearch" />
-          <div class="top-header__shopping-cart-button-desktop">
-            <ShoppingCartButton
-              :amount="shoppingCartAmount"
-              :ariaLabel="shoppingCartAriaLabel"
-              :target="shoppingCartTarget"
-              :href="shoppingCartLink"
-              :label="shoppingCartLabel"
-            />
-          </div>
-        </div>
-        <div
-          class="top-header__shopping-cart-button-mobile"
-          :class="isFreebrand ? 'freebrand' : ''"
-        >
-          <ShoppingCartButton
-            :amount="shoppingCartAmount"
-            :ariaLabel="shoppingCartAriaLabel"
-            :target="shoppingCartTarget"
-            :href="shoppingCartLink"
-            :label="shoppingCartLabel"
-          />
         </div>
         -->
         <LanguageSwitcher

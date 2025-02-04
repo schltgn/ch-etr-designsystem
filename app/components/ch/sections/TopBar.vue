@@ -11,7 +11,7 @@
           class="top-bar__btn"
           @click="triggerTopBar()"
         >
-          <span>Alle Schweizer Bundesbehörden</span>
+          <span>{{ $clientData.t('topBar.link.open') }}</span>
           <SvgIcon icon="ChevronDown" size="lg" class="top-bar__btn__icon" />
         </button>
         <div v-else />
@@ -33,12 +33,14 @@
       <div class="container">
         <div class="flex justify-end">
           <button class="top-bar__drawer__close__btn" @click="isOpen = !isOpen">
-            <span>Schliessen</span>
+            <span>{{ $clientData.t('topBar.link.close') }}</span>
             <SvgIcon icon="Cancel" size="lg" />
           </button>
         </div>
         <div>
-          <h3 class="top-bar__main-title">Wo befinde ich mich?</h3>
+          <h3 class="top-bar__main-title">
+            {{ $clientData.t('topBar.youAreHere') }}
+          </h3>
           <nav
             aria-label="breadcrumb"
             aria-current="location"
@@ -46,16 +48,19 @@
           >
             <ul>
               <li>
-                <a href="javascript:void(0)">UVEK</a>
+                <a :href="$clientData.t('topBar.department.uvek.url')">{{
+                  $clientData.t('topBar.department.uvek.abbr')
+                }}</a>
                 <SvgIcon icon="ArrowRight" class="localization__icon" />
               </li>
               <li>
-                <a href="javascript:void(0)">Swisstopo</a>
-                <SvgIcon icon="ArrowRight" class="localization__icon" />
-              </li>
-              <li>
-                <a href="javascript:void(0)" class="active" aria-current="page">
-                  Das Geoportal des Bundes
+                <a
+                  :href="$clientData.t('topBar.authority.bafu.url')"
+                  class="active"
+                  aria-current="page"
+                >
+                  {{ $clientData.t('topBar.authority.bafu.name') }}
+                  {{ $clientData.t('topBar.authority.bafu.abbr') }}
                 </a>
               </li>
             </ul>
@@ -66,30 +71,23 @@
 
         <div>
           <h3 class="top-bar__main-title">
-            Eine andere Bundesbehörde besuchen
+            {{ $clientData.t('topBar.visitAnother') }}
           </h3>
 
           <div class="top-bar__grid">
             <div class="top-bar__grid__box-1">
-              <h4 class="top-bar__title">Regierung</h4>
+              <h4 class="top-bar__title">
+                {{ $clientData.t('topBar.government.heading') }}
+              </h4>
               <ul class="menu">
-                <li class="menu__item menu__item--negative menu__item--brim">
-                  <a href="javascript:void(0)" class="menu__item__flex">
+                <li
+                  v-for="item in government"
+                  class="menu__item menu__item--negative menu__item--brim"
+                >
+                  <a :href="item.url" class="menu__item__flex">
                     <div>
-                      <div class="overtitle">BR</div>
-                      <div>Der Schweizerische Bundesrat</div>
-                    </div>
-                    <SvgIcon icon="External" class="menu__item__icon" />
-                  </a>
-                </li>
-                <li class="menu__item menu__item--negative menu__item--brim">
-                  <a href="javascript:void(0)" class="menu__item__flex">
-                    <div>
-                      <div class="overtitle">BK</div>
-                      <div>
-                        Die Schweizerische Bundeskanzlei – die Stabsstelle des
-                        Bundesrats
-                      </div>
+                      <div class="overtitle">{{ item.abbr }}</div>
+                      <div>{{ item.name }}</div>
                     </div>
                     <SvgIcon icon="External" class="menu__item__icon" />
                   </a>
@@ -101,79 +99,18 @@
             </div>
 
             <div class="top-bar__grid__box-3">
-              <h4 class="top-bar__title">Departemente</h4>
+              <h4 class="top-bar__title">
+                {{ $clientData.t('topBar.department.heading') }}
+              </h4>
               <ul class="menu">
-                <li class="menu__item menu__item--negative menu__item--brim">
-                  <a href="javascript:void(0)" class="menu__item__flex">
+                <li
+                  v-for="item in departments"
+                  class="menu__item menu__item--negative menu__item--brim"
+                >
+                  <a :href="item.url" class="menu__item__flex">
                     <div>
-                      <div class="overtitle">EDA</div>
-                      <div>
-                        Eidgenössisches Departement für auswärtige
-                        Angelegenheiten
-                      </div>
-                    </div>
-                    <SvgIcon icon="External" class="menu__item__icon" />
-                  </a>
-                </li>
-                <li class="menu__item menu__item--negative menu__item--brim">
-                  <a href="javascript:void(0)" class="menu__item__flex">
-                    <div>
-                      <div class="overtitle">EDI</div>
-                      <div>Eidgenössisches Departement des Innern</div>
-                    </div>
-                    <SvgIcon icon="External" class="menu__item__icon" />
-                  </a>
-                </li>
-                <li class="menu__item menu__item--negative menu__item--brim">
-                  <a href="javascript:void(0)" class="menu__item__flex">
-                    <div>
-                      <div class="overtitle">EJPD</div>
-                      <div>Eidgenössisches Justiz- und Polizeidepartement</div>
-                    </div>
-                    <SvgIcon icon="External" class="menu__item__icon" />
-                  </a>
-                </li>
-                <li class="menu__item menu__item--negative menu__item--brim">
-                  <a href="javascript:void(0)" class="menu__item__flex">
-                    <div>
-                      <div class="overtitle">VBS</div>
-                      <div>
-                        Eidgenössisches Departement für Verteidigung,
-                        Bevölkerungsschutz und Sport
-                      </div>
-                    </div>
-                    <SvgIcon icon="External" class="menu__item__icon" />
-                  </a>
-                </li>
-                <li class="menu__item menu__item--negative menu__item--brim">
-                  <a href="javascript:void(0)" class="menu__item__flex">
-                    <div>
-                      <div class="overtitle">EFD</div>
-                      <div>Eidgenössisches Finanzdepartement</div>
-                    </div>
-                    <SvgIcon icon="External" class="menu__item__icon" />
-                  </a>
-                </li>
-                <li class="menu__item menu__item--negative menu__item--brim">
-                  <a href="javascript:void(0)" class="menu__item__flex">
-                    <div>
-                      <div class="overtitle">WBF</div>
-                      <div>
-                        Eidgenössisches Departement für Wirtschaft, Bildung und
-                        Forschung
-                      </div>
-                    </div>
-                    <SvgIcon icon="External" class="menu__item__icon" />
-                  </a>
-                </li>
-                <li class="menu__item menu__item--negative menu__item--brim">
-                  <a href="javascript:void(0)" class="menu__item__flex">
-                    <div>
-                      <div class="overtitle">UVEK</div>
-                      <div>
-                        Eidgenössisches Departement für Umwelt, Verkehr, Energie
-                        und Kommunikation
-                      </div>
+                      <div class="overtitle">{{ item.abbr }}</div>
+                      <div>{{ item.name }}</div>
                     </div>
                     <SvgIcon icon="External" class="menu__item__icon" />
                   </a>
@@ -182,7 +119,9 @@
             </div>
 
             <div class="top-bar__grid__box-4">
-              <h4 class="top-bar__title">Weitere Bundes-Websites</h4>
+              <h4 class="top-bar__title">
+                {{ $clientData.t('topBar.authority.heading') }}
+              </h4>
               <div class="search search--negative search--large">
                 <div class="search__group">
                   <input
@@ -215,124 +154,17 @@
                 <div class="search__results search__results--negative">
                   <ul class="menu">
                     <li
+                      v-for="item in filteredAuthorities"
                       class="menu__item menu__item--negative menu__item--icon-on-hover"
                     >
-                      <a href="javascript:void(0)" class="menu__item__flex">
+                      <a :href="item.url" class="menu__item__flex">
                         <div>
                           <div class="overtitle">
-                            <span>EDA</span>
+                            <span>{{ item.department }}</span>
                             <SvgIcon icon="ArrowRight" class="icon--sm" />
-                            <span>BK</span>
+                            <span>{{ item.abbr }}</span>
                           </div>
-                          <div>Bundesamt für Kultur</div>
-                        </div>
-                        <SvgIcon icon="External" class="menu__item__icon" />
-                      </a>
-                    </li>
-                    <li
-                      class="menu__item menu__item--negative menu__item--icon-on-hover"
-                    >
-                      <a href="javascript:void(0)" class="menu__item__flex">
-                        <div>
-                          <div class="overtitle">
-                            <span>EDA</span>
-                            <SvgIcon icon="ArrowRight" class="icon--sm" />
-                            <span>BLV</span>
-                          </div>
-                          <div>
-                            Bundesamt für Lebensmittelsicherheit und
-                            Veterinärwesen
-                          </div>
-                        </div>
-                        <SvgIcon icon="External" class="menu__item__icon" />
-                      </a>
-                    </li>
-                    <li
-                      class="menu__item menu__item--negative menu__item--icon-on-hover"
-                    >
-                      <a href="javascript:void(0)" class="menu__item__flex">
-                        <div>
-                          <div class="overtitle">
-                            <span>UVEK</span>
-                            <SvgIcon icon="ArrowRight" class="icon--sm" />
-                            <span>BS</span>
-                          </div>
-                          <div>Bundesamt für Sozialversicherungen</div>
-                        </div>
-                        <SvgIcon icon="External" class="menu__item__icon" />
-                      </a>
-                    </li>
-                    <li
-                      class="menu__item menu__item--negative menu__item--icon-on-hover"
-                    >
-                      <a href="javascript:void(0)" class="menu__item__flex">
-                        <div>
-                          <div class="overtitle">
-                            <span>EDA</span>
-                            <SvgIcon icon="ArrowRight" class="icon--sm" />
-                            <span>BAR</span>
-                          </div>
-                          <div>Schweizerisches Bundesarchiv</div>
-                        </div>
-                        <SvgIcon icon="External" class="menu__item__icon" />
-                      </a>
-                    </li>
-                    <li
-                      class="menu__item menu__item--negative menu__item--icon-on-hover"
-                    >
-                      <a href="javascript:void(0)" class="menu__item__flex">
-                        <div>
-                          <div class="overtitle">
-                            <span>EDA</span>
-                            <SvgIcon icon="ArrowRight" class="icon--sm" />
-                            <span>BK</span>
-                          </div>
-                          <div>Bundesamt für Kultur</div>
-                        </div>
-                        <SvgIcon icon="External" class="menu__item__icon" />
-                      </a>
-                    </li>
-                    <li
-                      class="menu__item menu__item--negative menu__item--icon-on-hover"
-                    >
-                      <a href="javascript:void(0)" class="menu__item__flex">
-                        <div>
-                          <div class="overtitle">
-                            <span>EDA</span>
-                            <SvgIcon icon="ArrowRight" class="icon--sm" />
-                            <span>BAR</span>
-                          </div>
-                          <div>Schweizerisches Bundesarchiv</div>
-                        </div>
-                        <SvgIcon icon="External" class="menu__item__icon" />
-                      </a>
-                    </li>
-                    <li
-                      class="menu__item menu__item--negative menu__item--icon-on-hover"
-                    >
-                      <a href="javascript:void(0)" class="menu__item__flex">
-                        <div>
-                          <div class="overtitle">
-                            <span>EDA</span>
-                            <SvgIcon icon="ArrowRight" class="icon--sm" />
-                            <span>BK</span>
-                          </div>
-                          <div>Bundesamt für Kultur</div>
-                        </div>
-                        <SvgIcon icon="External" class="menu__item__icon" />
-                      </a>
-                    </li>
-                    <li
-                      class="menu__item menu__item--negative menu__item--icon-on-hover"
-                    >
-                      <a href="javascript:void(0)" class="menu__item__flex">
-                        <div>
-                          <div class="overtitle">
-                            <span>EDA</span>
-                            <SvgIcon icon="ArrowRight" class="icon--sm" />
-                            <span>BK</span>
-                          </div>
-                          <div>Bundesamt für Kultur</div>
+                          <div>{{ item.name }}</div>
                         </div>
                         <SvgIcon icon="External" class="menu__item__icon" />
                       </a>
@@ -349,7 +181,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { computed, getCurrentInstance, nextTick, onMounted, ref } from 'vue'
 import Badge from '../components/Badge.vue'
 import Btn from '../components/Btn.vue'
 import LanguageSwitcher from '../components/LanguageSwitcher.vue'
@@ -360,11 +192,7 @@ const filterString = ref('')
 const useStickyPlaceholder = ref(false)
 const initialTopBarOffset = ref(0)
 
-// const isOpen = defineModel('isOpen', {
-//   type: Boolean,
-//   default: () => false,
-// })
-const isOpen = ref(false);
+const isOpen = ref(false)
 const props = defineProps({
   isEasyLanguage: {
     type: Boolean,
@@ -420,7 +248,7 @@ const handleScroll = async function () {
     await nextTick()
     // Set height on placeholder to avoid jump when top bar is set to sticky
     const stickyPlaceholder = document.getElementById(
-      'stickyTopBarPlaceholder',
+      'stickyTopBarPlaceholder'
     ) as HTMLElement
     stickyPlaceholder.style.height = `${topBar.clientHeight}px`
 
@@ -435,6 +263,50 @@ const triggerTopBar = function () {
   isOpen.value = !isOpen.value
   window.postMessage({ trigger: 'top-bar-drawer-change' })
 }
+
+const instance = getCurrentInstance();
+const t = instance?.appContext.config.globalProperties.$clientData.t ?? (() => '');
+
+
+
+const authorities: { url: string; department: string; abbr: string; name: string }[] = [];
+t('topBar.authority.keys').split(',').forEach((key: string) => {
+  authorities.push({
+    url: t('topBar.authority.' + key + '.url'),
+    department: t('topBar.authority.' + key + '.department'),
+    abbr: t('topBar.authority.' + key + '.abbr'),
+    name: t('topBar.authority.' + key + '.name'),
+  });
+});
+
+const departments: { url: string; abbr: string; name: string }[] = [];
+t('topBar.department.keys').split(',').forEach((key: string) => {
+  departments.push({
+    url: t('topBar.department.' + key + '.url'),
+    abbr: t('topBar.department.' + key + '.abbr'),
+    name: t('topBar.department.' + key + '.name'),
+  });
+});
+
+const government: { url: string; abbr: string; name: string }[] = [];
+t('topBar.government.keys').split(',').forEach((key: string) => {
+  government.push({
+    url: t('topBar.government.' + key + '.url'),
+    abbr: t('topBar.government.' + key + '.abbr'),
+    name: t('topBar.government.' + key + '.name'),
+  });
+});
+
+const filteredAuthorities = computed(() => {
+  return authorities.filter(
+    (item) =>
+      item.name.toLowerCase().includes(filterString.value.toLowerCase()) ||
+      item.department
+        .toLowerCase()
+        .includes(filterString.value.toLowerCase()) ||
+      item.abbr.toLowerCase().includes(filterString.value.toLowerCase())
+  )
+})
 
 onMounted(() => {
   if (props.isSticky) {
