@@ -20,15 +20,15 @@ const props = defineProps({
     type: String,
     validator: (prop) =>
       ['default', 'negative', 'outline'].includes(prop as string),
-    default: () => undefined,
+    default: () => 'outline',
   },
   target: {
     type: String,
-    default: () => '#',
+    default: () => 'main-header',
   },
   fixed: {
     type: Boolean,
-    default: () => false,
+    default: () => true,
   },
   wrapper: {
     type: Boolean,
