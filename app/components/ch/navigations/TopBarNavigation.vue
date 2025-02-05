@@ -18,20 +18,6 @@
   </nav>
   <nav v-else class="top-bar-navigation" aria-label="Top bar">
     <ul>
-      <!--
-      <li>
-        <a href="#">
-          <span>Leichte Sprache</span>
-          <SvgIcon size="lg" icon="EasyLanguage" />
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span>Gebärdensprache</span>
-          <SvgIcon size="lg" icon="SignLanguage" />
-        </a>
-      </li>
-      -->
       <li>
         <a :href="$clientData.loginLogout.url">
           <span>{{ $clientData.loginLogout.text }} </span>
