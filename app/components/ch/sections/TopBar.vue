@@ -23,6 +23,7 @@
             :label="computedAccessibilityBadgeLabel"
             size="base"
           />
+          <div class="notification notification--error p-2" v-if="$clientData.isTestEnvironment">TEST-ENVIRONMENT</div>
           <TopBarNavigation v-if="!isEasyLanguage && !isSignLanguage" />
           <LanguageSwitcher type="negative" />
         </div>
@@ -54,13 +55,18 @@
                 <SvgIcon icon="ArrowRight" class="localization__icon" />
               </li>
               <li>
+                <a :href="$clientData.t('topBar.authority.bafu.url')">{{
+                  $clientData.t('topBar.authority.bafu.abbr')
+                }}</a>
+                <SvgIcon icon="ArrowRight" class="localization__icon" />
+              </li>
+              <li>
                 <a
-                  :href="$clientData.t('topBar.authority.bafu.url')"
+                  :href="$clientData.contextPath"
                   class="active"
                   aria-current="page"
                 >
-                  {{ $clientData.t('topBar.authority.bafu.name') }}
-                  {{ $clientData.t('topBar.authority.bafu.abbr') }}
+                  {{ $clientData.t('label.applicationTitle') }}
                 </a>
               </li>
             </ul>
@@ -266,8 +272,6 @@ const triggerTopBar = function () {
 
 const instance = getCurrentInstance();
 const t = instance?.appContext.config.globalProperties.$clientData.t ?? (() => '');
-
-
 
 const authorities: { url: string; department: string; abbr: string; name: string }[] = [];
 t('topBar.authority.keys').split(',').forEach((key: string) => {
