@@ -1,15 +1,12 @@
 <template>
   <div id="top-header-id" class="top-header">
     <div class="top-header__mobile-title" aria-hidden="true">
-      <div class="container container--flex">
-        Eidgenössisches Departement für Verteidigung, <br />Bevölkerungsschutz
-        und Sport
-      </div>
+      <div class="container container--flex" v-html="title" />
     </div>
     <div class="container container--flex">
       <Logo
-        title="Eidgenössisches Departement für Verteidigung, <br/>Bevölkerungsschutz und Sport"
-        accronym="DSS"
+        :title="title"
+        :accronym="$clientData.t('topBar.authority.bafu.abbr')"
         :class="overrideLogoForPrint ? 'logo--print-hidden' : ''"
         :isFreebrand="isFreebrand"
         :isEasyLanguage="isEasyLanguage"
@@ -18,8 +15,8 @@
       />
       <Logo
         v-if="overrideLogoForPrint"
-        title="Staatssekretariat für Wirtschaft"
-        accronym="SECO"
+        :title="title"
+        :accronym="$clientData.t('topBar.authority.bafu.abbr')"
         :class="overrideLogoForPrint ? 'logo--print-only' : ''"
       />
       <div v-if="isEasyLanguage" class="icon-header-mobile icon-easy-language">
@@ -49,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import {computed, getCurrentInstance, onMounted, ref} from 'vue'
 import { useLayoutStore } from '../../../store/layout'
 import Burger from '../components/Burger.vue'
 import LanguageSwitcher from '../components/LanguageSwitcher.vue'
@@ -126,6 +123,10 @@ function getMobileMenuIsOpen() {
 function resizeWindow() {
   screenSize.value = document.body.clientWidth
 }
+
+const instance = getCurrentInstance();
+const t = instance?.appContext.config.globalProperties.$clientData.t ?? (() => '');
+const title = computed(() => t('topBar.authority.bafu.name') + "<br>" + t('label.applicationTitle'))
 
 onMounted(() => {
   resizeWindow()
