@@ -23,7 +23,7 @@
             :label="computedAccessibilityBadgeLabel"
             size="base"
           />
-          <div class="notification notification--error p-2" v-if="$clientData.isTestEnvironment">TEST-ENVIRONMENT</div>
+          <div class="notification notification--error p-2 m-0" v-if="$clientData.isTestEnvironment">TEST-ENVIRONMENT</div>
           <TopBarNavigation v-if="!isEasyLanguage && !isSignLanguage" />
           <LanguageSwitcher type="negative" />
         </div>
