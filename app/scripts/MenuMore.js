@@ -16,6 +16,7 @@ const MenuMore = {
   },
 
   startTriage() {
+
     let cumulatedSize = 0
 
     // be sure everything is visible while resizing
@@ -29,7 +30,7 @@ const MenuMore = {
       }
       item.style.display = 'block'
     })
-    if (MenuMore.menuSize <= MenuMore.getMenuWrapperSize()) {
+    if (MenuMore.getMenuSize() <= MenuMore.getMenuWrapperSize()) {
       MenuMore.moreBtn.style.display='none';
       return
     }
