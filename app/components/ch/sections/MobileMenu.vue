@@ -1,4 +1,6 @@
 <template>
+  <AlterBodyClasses :isMobileMenuOpen="layoutStore.mobileMenuIsOpen" />
+
   <div v-if="isSimplePage">
     <div id="mobile-menu-id" class="mobile-menu-navigation-bar">
       <CarouselNavigation :id="carouselNavId" />
@@ -16,7 +18,6 @@
       context="mobile"
       :showActiveNavigation="showActiveNavigation"
     />
-    <MetaNavigationMobile />
     <TopBarNavigation :isMobileMenu="true" />
   </div>
 </template>
@@ -29,7 +30,10 @@ import MetaNavigationMobile from '../navigations/MobileMetaNavigation.vue'
 import TopBarNavigation from '../navigations/TopBarNavigation.vue'
 import { ref, onMounted, nextTick } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
+import AlterBodyClasses from "../objects/AlterBodyClasses.vue";
+import { useLayoutStore } from '../../../store/layout'
 
+const layoutStore = useLayoutStore()
 const carouselNavId = ref('')
 const useStickyPlaceholder = ref(false)
 const initialNavBarOffset = ref(0)
