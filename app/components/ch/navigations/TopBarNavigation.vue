@@ -10,9 +10,6 @@
         <a :href="$clientData.loginLogout.url">
           <span>{{ $clientData.loginLogout.text }}</span>
         </a>
-        <a href="#">
-          <span>Informationsportal der Schweizer Behörden</span>
-        </a>
       </li>
     </ul>
   </nav>
