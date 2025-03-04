@@ -1,6 +1,6 @@
 <template>
   <li>
-    <a v-if="level > 0" @click.prevent role="button" class="navy__back">
+    <a v-if="level > 0 && index === 0" @click.prevent role="button" class="navy__back">
       <SvgIcon icon="ArrowLeft" size="lg" />
       <span>Back</span>
     </a>
