@@ -36,10 +36,10 @@
           v-if="isFreebrand && screenSize <= 1023"
           type="outline"
         />
-        <!--Burger
+        <Burger
           :isOpen="getMobileMenuIsOpen()"
           @click="layoutStore.toggleMobileMenu"
-        /-->
+        />
       </div>
     </div>
   </div>
