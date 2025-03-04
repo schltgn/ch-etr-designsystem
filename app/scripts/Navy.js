@@ -62,7 +62,6 @@ const Navy = {
   },
 
   parseTree(ul, level) {
-    ul.classList.add('hidden')
     const nextButtons = ul.querySelectorAll(':scope > li > .navy__has-children')
     if (nextButtons.length === 0) return
 
