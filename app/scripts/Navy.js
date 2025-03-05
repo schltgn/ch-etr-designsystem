@@ -62,6 +62,10 @@ const Navy = {
   },
 
   parseTree(ul, level) {
+    if (level > 0) {
+      // hide all but level 0, this is needed for mobile menu
+      ul.classList.add('hidden')
+    }
     const nextButtons = ul.querySelectorAll(':scope > li > .navy__has-children')
     if (nextButtons.length === 0) return
 
@@ -86,7 +90,8 @@ const Navy = {
       // move menu into it's respective slide:
       Navy.level[level + 1].appendChild(btn.relatedMenu)
 
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (event) {
+        event.preventDefault()
         Navy.showLevel(level + 1)
 
         Navy.displayRelatedSubmenu(btn, btn.relatedMenu, submenus)
