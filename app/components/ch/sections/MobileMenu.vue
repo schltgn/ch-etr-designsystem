@@ -26,7 +26,6 @@
 import Navy from '../../../scripts/Navy.js'
 import CarouselNavigation from '../navigations/CarouselNavigation.vue'
 import MainNavigation from '../navigations/MainNavigation.vue'
-import MetaNavigationMobile from '../navigations/MobileMetaNavigation.vue'
 import TopBarNavigation from '../navigations/TopBarNavigation.vue'
 import { ref, onMounted, nextTick } from 'vue'
 import { v4 as uuidv4 } from 'uuid'

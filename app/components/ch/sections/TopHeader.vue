@@ -26,12 +26,6 @@
         <SvgIcon icon="SignLanguage" size="2xl" />
       </div>
       <div v-if="!isEasyLanguage && !isSignLanguage" class="top-header__right">
-        <!--
-        <MetaNavigation :isFreebrand="isFreebrand" />
-        <div class="top-header__container-flex">
-          <SearchMain :isMenuV2="isMenuV2" @toggle-search="toggleSearch" />
-        </div>
-        -->
         <LanguageSwitcher
           v-if="isFreebrand && screenSize <= 1023"
           type="outline"
@@ -51,10 +45,7 @@ import { useLayoutStore } from '../../../store/layout'
 import Burger from '../components/Burger.vue'
 import LanguageSwitcher from '../components/LanguageSwitcher.vue'
 import Logo from '../components/Logo.vue'
-import SearchMain from '../components/SearchMain.vue'
-import ShoppingCartButton from '../components/ShoppingCartButton.vue'
 import SvgIcon from '../components/SvgIcon.vue'
-import MetaNavigation from '../navigations/MetaNavigation.vue'
 
 const layoutStore = useLayoutStore()
 
