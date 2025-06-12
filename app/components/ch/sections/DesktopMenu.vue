@@ -12,7 +12,7 @@
           />
           <div id="desktop-menu__drawer" class="desktop-menu__drawer hidden">
             <button id="desktop-menu-closer" class="desktop-menu__close">
-              <span>Schliessen</span>
+              <span>{{ $clientData.t('form.menu.close') }}</span>
               <SvgIcon icon="Cancel" />
             </button>
           </div>

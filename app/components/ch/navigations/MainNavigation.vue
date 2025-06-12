@@ -18,7 +18,7 @@
           role="button"
           class="navy__has-children desktop-menu__more"
         >
-          <span>Mehr</span>
+          <span>{{ $clientData.t('form.menu.more') }}</span>
           <SvgIcon icon="MoreFilled" size="lg" />
         </a>
         <ul id="more-container" />
