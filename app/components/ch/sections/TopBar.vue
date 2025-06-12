@@ -136,7 +136,7 @@
                     v-model="filterString"
                     type="search"
                     label="Ämter filtern"
-                    placeholder="Filtern"
+                    :placeholder="$clientData.t('topBar.authority.filter.placeholder')"
                     autocomplete="off"
                   />
                   <Btn
