@@ -3,7 +3,7 @@
     <ul>
       <li>
         <a :href="$clientData.contextPath">
-          <span>Startseite</span>
+          <span>{{ $clientData.t('form.menu.home') }}</span>
         </a>
       </li>
       <BreadcrumbNavigationItem
