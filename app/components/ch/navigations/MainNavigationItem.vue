@@ -2,7 +2,7 @@
   <li>
     <a v-if="level > 0 && index === 0" @click.prevent role="button" class="navy__back">
       <SvgIcon icon="ArrowLeft" size="lg" />
-      <span>Back</span>
+      <span>{{ $clientData.t('form.menu.back') }}</span>
     </a>
     <h2 v-if="parentNavItem != null && index === 0" class="navy__title">{{ parentNavItem.text }}</h2>
     <a
